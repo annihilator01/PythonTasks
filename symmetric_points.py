@@ -1,22 +1,27 @@
-def isSymmetric(points):
-    one_line_points = [p[0] for p in points if p[1] == points[0][1]]
-    sym_centre_x = sum(one_line_points) / len(one_line_points)
+from typing import Dict, List, Tuple
 
-    dict = {}
-    for p in points:
-        sym_centre_point = (abs(p[0] - sym_centre_x), p[1]) # tuple[0] - distance to sym. centre, tuple[1] - 'y' coordinate
-        if dict.get(sym_centre_point):
-            dict[sym_centre_point] += 1
-        else:
-            dict[sym_centre_point] = 1
 
-    if sum(dict.values()) == len(points) and sum(map(lambda x: x % 2, dict.values())) == 0:
-        return True
-    else:
-        return False
+def isSymmetric(points: List[Tuple[int, int]]) -> bool:
+    x_sym_center: int = sum([p[0] for p in points]) / len(points)
 
-points = [(5, -3), (4, 1), (4, 3), (1, -3), (-1, -3), (5, 0), (2, 3), (1, 0), (7, -3), (2, 1)]
-points_2 = [(5, -3), (4, 1), (4, 3), (1, -3), (0, -3), (5, 0), (2, 3), (1, 0), (7, -3), (2, 1)]
-points_3 = [(-1, 2), (1, 2), (2, 1), (-2, 1)]
+    points_dict: Dict[Tuple[int, int], int] = {}
+    for point in points:
+        points_dict[point] = points_dict.get(point, 0) + 1
 
-print(isSymmetric(points))
+    for point in points_dict.keys():
+        if points_dict[point] != points_dict.get(findSymmetricPoint(point, x_sym_center), 0):
+            return False
+
+    return True
+
+
+def findSymmetricPoint(point: Tuple[int, int], x_sym_center: int) -> Tuple[int, int]:
+    return (x_sym_center * 2 - point[0], point[1])
+
+
+if __name__ == '__main__':
+    points: List[Tuple[int, int]] = [(5, -3), (4, 1), (4, 3), (1, -3), (-1, -3), (5, 0), (2, 3), (1, 0), (7, -3), (2, 1)]
+    points_2: List[Tuple[int, int]] = [(5, -3), (4, 1), (4, 3), (1, -3), (0, -3), (5, 0), (2, 3), (1, 0), (7, -3), (2, 1)]
+    points_3: List[Tuple[int, int]] = [(-1, 2), (1, 2), (2, 1), (-2, 1)]
+    points_4: List[Tuple[int, int]] = [(0, 0), (2, 0), (1, 2)]
+    print(isSymmetric(points_4))
