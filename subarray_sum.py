@@ -1,6 +1,11 @@
-t = int(input())
+"""
+Task:
+Given an unsorted array A of size N of non-negative integers,
+find a continuous sub-array which adds to a given number S.
+"""
 
-for _ in range(t):
+
+for _ in range(int(input())):
     n, subarray_sum = [int(num) for num in input().split()]
 
     array_sum = [0]

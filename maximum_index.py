@@ -1,3 +1,10 @@
+"""
+Task:
+Given an array A[] of N positive integers.
+The task is to find the maximum of j - i subjected to the constraint of A[i] <= A[j].
+"""
+
+
 def find_max_index_dif(n, array):
     min_before = [0] * n
     max_after = [0] * n

@@ -1,3 +1,10 @@
+"""
+Task:
+Given points on the coordinate plane, return true if there is vertical symmetry among them,
+if not return false.
+"""
+
+
 from typing import Dict, List, Tuple
 
 
